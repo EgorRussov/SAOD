@@ -14,11 +14,13 @@ int main()
     std::cout << endl;
     Complex* pc;
     pc = new Complex;
+    delete pc;
     pc = new Complex(1);
+    delete pc;
     pc = new Complex(1,2);
+    delete pc;
     std::cout << pc;
     Complex* arr = new Complex[3];
-    delete pc;
     delete [] arr;
 
 }
