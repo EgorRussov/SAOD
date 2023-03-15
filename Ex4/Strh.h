@@ -1,5 +1,4 @@
 #pragma once
-#include <cstring>
 class Str {
 	char* m_pszText;
 public:
