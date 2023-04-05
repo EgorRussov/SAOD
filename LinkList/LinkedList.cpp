@@ -1,6 +1,7 @@
-﻿#include <iostream>
+#include <iostream>
 #include "LinkList.h"
 #include "LinkList.cpp"
+#include <numeric>
 
 void print_lst(const LinkList<char>& l) {
     for (int i = 0; i < l.size()-1; i++) {
@@ -44,5 +45,9 @@ int main()
     lst.push_back('w');
     
     std::cout << lst.size() << ' ' << std::boolalpha << lst.empty() << std::endl;
+    
+    LinkList <int> l = { 3 , 5 , 2 , 7 };// проверка итератора
+    for (auto& i : l) i += 2;
+    auto lambda = [&l](int a, int b) { return a + b * 10; };
+    std::cout << std::accumulate(l.begin(), l.end(), 0, lambda) << "\n";// 250
 }
-
