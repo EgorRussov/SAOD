@@ -9,6 +9,16 @@ LinkList<T>::LinkList()
 }
 
 template<typename T>
+LinkList<T>::LinkList(std::initializer_list<T> values)
+{
+    first = nullptr;
+    last = nullptr;
+    for (auto it = values.begin(); it != values.end(); ++it) {
+        push_back(*it);
+    }
+}
+
+template<typename T>
 LinkList<T>::~LinkList()
 {
     Node<T>* cur_node = first;
@@ -261,4 +271,16 @@ T LinkList<T>::front() const
     {
         return first->data;
     }
+}
+
+template<typename T>
+typename LinkList<T>::ListIterator LinkList<T>::begin()
+{
+ return ListIterator(first);
+}
+
+template<typename T>
+typename LinkList<T>::ListIterator LinkList<T>::end()
+{
+ return ListIterator(nullptr);
 }
