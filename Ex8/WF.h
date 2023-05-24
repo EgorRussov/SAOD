@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <algorithm>
-
+#include <iostream>
 class WF {
 private:
     int* pm;
@@ -34,6 +34,7 @@ public:
         matrixInitialized = true;
     }
 
+
     int Rows() const {
         return M;
     }
@@ -42,7 +43,7 @@ public:
         return N;
     }
 
-    int Get(int i, int j) {
+    int Get(int i, int j) const{
         return pm[i * (N + 1) + j];
     }
 
@@ -53,37 +54,25 @@ public:
     int Distance() const {
         int M = s.length();
         int N = t.length();
-        int** D = new int* [M + 1];
         for (int i = 0; i <= M; i++) {
-            D[i] = new int[N + 1];
-        }
-
-        for (int i = 0; i <= M; i++) {
-            D[i][0] = i;
+            Set(i, 0, i);
         }
 
         for (int j = 0; j <= N; j++) {
-            D[0][j] = j;
+            Set(0, j, j);
         }
 
         for (int i = 1; i <= M; i++) {
             for (int j = 1; j <= N; j++) {
                 int penalty = (s[i - 1] == t[j - 1]) ? 0 : 1;
-                D[i][j] = std::min({ D[i - 1][j] + 1, D[i][j - 1] + 1, D[i - 1][j - 1] + penalty });
+                int value = std::min({ Get(i - 1, j) + 1, Get(i, j - 1) + 1, Get(i - 1, j - 1) + penalty });
+                Set(i, j, value);
             }
         }
-
-        int distance = D[M][N];
-
-        for (int i = 0; i <= M; i++) {
-            delete[] D[i];
-        }
-        delete[] D;
-
-        return distance;
+        return Get(M, N);
     }
+
 
     WF(const WF&) = delete;
     WF& operator=(const WF&) = delete;
 };
-
